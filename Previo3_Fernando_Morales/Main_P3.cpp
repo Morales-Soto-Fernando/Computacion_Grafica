@@ -1,5 +1,5 @@
-/*Previo 3                              Morales Soto Fernando
-  Fecha  23 de Agosto del 2025          Numero de cuenta 315143977
+/*Practica 3                              Morales Soto Fernando
+  Fecha   de Agosto del 2025          Numero de cuenta 315143977
 */
 #include<iostream>
 

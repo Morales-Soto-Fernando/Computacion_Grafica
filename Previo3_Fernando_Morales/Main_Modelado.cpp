@@ -1,6 +1,6 @@
-/*
-Previo 4
-Fecha de entrega 26 de Agosto del 2025
+ï»¿/*
+Practica 4
+Fecha de entrega 3 de Septiembre del 2025
 Morales Soto Fernando
 315143977
 */
@@ -31,7 +31,7 @@ float movZ=-5.0f;
 float rot = 0.0f;
 int main() {
 	glfwInit();
-	//Verificación de compatibilidad 
+	//VerificaciÃ³n de compatibilidad 
 	// Set all the required options for GLFW
 	/*glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -40,13 +40,13 @@ int main() {
 
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Previo 4 Fernando Morales", nullptr, nullptr);
+	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Practica 4 Fernando Morales", nullptr, nullptr);
 
 	int screenWidth, screenHeight;
 
 	glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
 
-	//Verificación de errores de creacion  ventana
+	//VerificaciÃ³n de errores de creacion  ventana
 	if (nullptr == window)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -58,7 +58,7 @@ int main() {
 	glfwMakeContextCurrent(window);
 	glewExperimental = GL_TRUE;
 
-	//Verificación de errores de inicialización de glew
+	//VerificaciÃ³n de errores de inicializaciÃ³n de glew
 
 	if (GLEW_OK != glewInit()) {
 		std::cout << "Failed to initialise GLEW" << std::endl;
@@ -160,14 +160,23 @@ int main() {
 	glEnableVertexAttribArray(1);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0); // Unbind VAO
 
+	// ðŸ”¹ Lambdas para manejar color constante por pieza
+	auto SetColor = [&](float r, float g, float b) {
+		glDisableVertexAttribArray(1);   // deja de leer color del VBO
+		glVertexAttrib3f(1, r, g, b);    // usa este color constante
+	};
+	auto UseVBOColors = [&]() {
+		glEnableVertexAttribArray(1);    // volver a usar colores del VBO (si algÃºn dÃ­a lo necesitas)
+	};
 
-	glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs)
+	glm::mat4 projection = glm::mat4(1);
+	projection = glm::perspective(glm::radians(45.0f),
+		(GLfloat)screenWidth / (GLfloat)screenHeight,
+		0.1f, 100.0f);
 
-	
-	glm::mat4 projection=glm::mat4(1);
-
-	projection = glm::perspective(glm::radians(45.0f), (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);//FOV, Radio de aspecto,znear,zfar
+	//FOV, Radio de aspecto,znear,zfar
 	//projection = glm::ortho(0.0f, (GLfloat)screenWidth, 0.0f, (GLfloat)screenHeight, 0.1f, 1000.0f);//Izq,Der,Fondo,Alto,Cercania,Lejania
 	while (!glfwWindowShouldClose(window))
 	{
@@ -178,7 +187,7 @@ int main() {
 
 		// Render
 		// Clear the colorbuffer
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		glClearColor(0.5f, 1.0f, 0.83f, 1.0f); //se cambio el color a agua marina
 		glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 
 
@@ -202,37 +211,219 @@ int main() {
 	
 
 		glBindVertexArray(VAO);
-	    //mesa
-	    model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(3.0f, 0.1f, 2.0f)); //Ancho, grosor, profundidad
-		model = glm::translate(model, glm::vec3(0.0f, 0.6f, 0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		//glBindVertexArray(0); si se des comenta no aparece la pata
-		//se inicializa nuevamente la matiz de modelo
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f));           //Tamaño de la pata
-		model = glm::translate(model, glm::vec3(2.9f, -0.6f, 1.9f));      //Posición de la pata
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model)); // se llama a la información
-		glDrawArrays(GL_TRIANGLES, 0, 36); // se dibuja la caja
-		//pata2
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f));           //Tamaño de la pata
-		model = glm::translate(model, glm::vec3(-2.9f, -0.6f, 1.9f));      //Posición de la pata
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model)); // se llama a la información
-		glDrawArrays(GL_TRIANGLES, 0, 36); // se dibuja la caja
-		//Pata3
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f));           //Tamaño de la pata
-		model = glm::translate(model, glm::vec3(-2.9f, -0.6f, -1.9f));      //Posición de la pata
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model)); // se llama a la información
-		glDrawArrays(GL_TRIANGLES, 0, 36); // se dibuja la caja
-		//pata4
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f));           //Tamaño de la pata
-		model = glm::translate(model, glm::vec3(2.9f, -0.6f, -1.9f));      //Posición de la pata
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model)); // se llama a la información
-		glDrawArrays(GL_TRIANGLES, 0, 36); // se dibuja la caja
+	    //Pinguino
+		// Cabeza
+		{
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(0.0f, 0.75f, 0.0f));
+			model = glm::scale(model, glm::vec3(1.2f, 1.0f, 1.2f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+			SetColor(0.125f, 0.223f, 0.31f); // azul marino
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
+		// Pecho
+		{
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(0.0f, 0.10f, 0.15f));
+			model = glm::scale(model, glm::vec3(1.05f, 0.9f, 0.8f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			SetColor(1.0f, 1.0f, 1.0f); // blanco
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+		// Detalle pecho - rectÃ¡ngulo superior 
+		{
+			glm::mat4 model = glm::mat4(1.0f);
+			// mÃ¡s bajo (zona blanca) y casi coplanar con el frente del pecho
+			model = glm::translate(model, glm::vec3(0.0f, 0.20f, 0.660f)); // Z pegado (evita z-fighting)
+			model = glm::scale(model, glm::vec3(0.36f, 0.10f, 0.020f));  // muy delgado en Z
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+			SetColor(0.91f, 0.78f, 0.35f); // dorado
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
+    // Detalle pecho - cuadrado inferior 
+{
+    glm::mat4 model = glm::mat4(1.0f);
+    // un poco mÃ¡s abajo que el rectÃ¡ngulo superior, centrado
+    model = glm::translate(model, glm::vec3(0.0f,  0.08f, 0.660f));
+    model = glm::scale(model,     glm::vec3(0.18f, 0.18f, 0.020f));  // delgado en Z
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    SetColor(0.91f, 0.78f, 0.35f); // dorado
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+}
+
+
+		// Ala derecha
+		{
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(0.75f, 0.20f, 0.0f));
+			model = glm::scale(model, glm::vec3(0.35f, 0.8f, 0.6f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+			SetColor(0.125f, 0.223f, 0.31f); // azul marino
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+		// ExtensiÃ³n ala derecha (alineada con el borde inferior y cara trasera)
+		{
+			glm::mat4 model = glm::mat4(1.0f);
+			// x igual al ala, y calculada para alinear el borde inferior, z centrado para que su cara delantera toque la cara trasera del ala
+			model = glm::translate(model, glm::vec3(0.75f, 0.05f, -0.40f));
+			// mÃ¡s angosta y corta
+			model = glm::scale(model, glm::vec3(0.30f, 0.50f, 0.20f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+			SetColor(0.125f, 0.223f, 0.31f); // azul marino
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
+
+
+
+		// Ala izquierda
+		{
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(-0.75f, 0.20f, 0.0f));
+			model = glm::scale(model, glm::vec3(0.35f, 0.8f, 0.6f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+			SetColor(0.125f, 0.223f, 0.31f); // azul marino
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
+		// ExtensiÃ³n ala izquierda (alineada con el borde inferior y cara trasera)
+		{
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(-0.75f, 0.05f, -0.40f));
+			model = glm::scale(model, glm::vec3(0.30f, 0.50f, 0.20f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+			SetColor(0.125f, 0.223f, 0.31f);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
+		// Pico
+		{
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(0.0f, 0.66f, 0.76f));
+			model = glm::scale(model, glm::vec3(0.28f, 0.14f, 0.42f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+			SetColor(0.96f, 0.48f, 0.16f); // naranja
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+		// Gancho del pico 
+		{
+			glm::mat4 model = glm::mat4(1.0f);
+			// ubicado al frente del pico principal
+			model = glm::translate(model, glm::vec3(0.0f, 0.60f, 0.88f));
+			// muy delgado en Y y un poco mÃ¡s estrecho en Z
+			model = glm::scale(model, glm::vec3(0.20f, 0.08f, 0.18f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+			SetColor(0.96f, 0.48f, 0.16f); // naranja
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
+
+
+		// Patita izquierda
+		{
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(-0.35f, -0.25f, 0.7f));
+			model = glm::scale(model, glm::vec3(0.4f, 0.15f, 0.35f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+			SetColor(0.96f, 0.48f, 0.16f); // naranja
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+		{
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(0.35f, -0.25f, 0.7f));
+			model = glm::scale(model, glm::vec3(0.4f, 0.15f, 0.35f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+			SetColor(0.96f, 0.48f, 0.16f); // naranja
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+	
+        // Ojo derecho  + brillo
+		{
+		    //negro 
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(0.65f, 0.98f, 0.22f)); // pegado al borde +X
+			model = glm::scale(model, glm::vec3(0.12f, 0.24f, 0.12f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			SetColor(0.02f, 0.02f, 0.03f);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+
+			// Brillo blanco
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(0.65f, 1.05f, 0.28f));
+			model = glm::scale(model, glm::vec3(0.05f, 0.08f, 0.05f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			SetColor(1.0f, 1.0f, 1.0f);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
+		// Ojo izquierdo  + brillo
+		{
+			// Prisma negro
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(-0.65f, 0.98f, 0.22f)); // pegado al borde -X
+			model = glm::scale(model, glm::vec3(0.12f, 0.24f, 0.12f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			SetColor(0.02f, 0.02f, 0.03f);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+
+			// Brillo blanco
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(-0.65f, 1.05f, 0.28f));
+			model = glm::scale(model, glm::vec3(0.05f, 0.08f, 0.05f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			SetColor(1.0f, 1.0f, 1.0f);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+		// PestaÃ±as ojo izquierdo
+		{
+			// superior
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(-0.66f, 1.00f, 0.16f)); // un poco detrÃ¡s en Z
+			model = glm::scale(model, glm::vec3(0.14f, 0.06f, 0.06f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			SetColor(0.91f, 0.78f, 0.35f); // amarillo
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+
+			// inferior
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(-0.66f, 0.92f, 0.16f));
+			model = glm::scale(model, glm::vec3(0.14f, 0.06f, 0.06f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			SetColor(0.91f, 0.78f, 0.35f);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+		// PestaÃ±as ojo derecho
+		{
+			// superior
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(0.66f, 1.00f, 0.16f)); // un poco detrÃ¡s en Z
+			model = glm::scale(model, glm::vec3(0.14f, 0.06f, 0.06f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			SetColor(0.91f, 0.78f, 0.35f);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+
+			// inferior
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(0.66f, 0.92f, 0.16f));
+			model = glm::scale(model, glm::vec3(0.14f, 0.06f, 0.06f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			SetColor(0.91f, 0.78f, 0.35f);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
 
 
 		glBindVertexArray(0);

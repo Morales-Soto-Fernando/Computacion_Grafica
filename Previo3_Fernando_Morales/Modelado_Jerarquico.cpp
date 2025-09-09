@@ -1,6 +1,6 @@
 /*
-Previo 5
-Fecha de entrega 7 de septiembre del 2025
+Practica 5
+Fecha de entrega 9 de septiembre del 2025
 Morales Soto Fernando
 315143977
 */
@@ -32,7 +32,18 @@ float codo = 0.0f;
 float muneca = 0.0f;
 float dedo1 = 0.0f;
 float dedo2 = 0.0f;
-
+float dedo3 = 0.0f;
+float dedo4 = 0.0f,
+dedo5 = 0.0f,
+dedo6 = 0.0f,
+dedo7 = 0.0f,
+dedo8 = 0.0f,
+dedo9 = 0.0f,
+dedo10 = 0.0f,
+dedo11 = 0.0f,
+dedo12 = 0.0f,
+dedo13 = 0.0f,//pulgar A
+dedo14 = 0.0f;//pulgar B
 int main() {
 	glfwInit();
 	//Verificación de compatibilidad 
@@ -236,24 +247,154 @@ int main() {
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);//C
-		//Model dedo 1 
-		model = glm::translate(modelTemp, glm::vec3(0.25f, 0.35f, 0.375f));
+		//Model dedo1 A
+	
+		model = glm::translate(modelTemp2, glm::vec3(0.25f, 0.421875f, 0.421875f));//me muevo al final de la caja para dibujar la otra caja
 		model = glm::rotate(model, glm::radians(muneca), glm::vec3(0.0f, 0.0f, 1.0f));
-		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
+		modelTemp = model = glm::translate(model, glm::vec3(0.25f, 0.0f, 0.0f));//para ubicarse en el centro de la figura a dibujar (en x)
+		model = glm::scale(model, glm::vec3(0.5f, 0.15625f, 0.15625f));//dibujo caja
 		color = glm::vec3(0.0f, 1.0f, 1.0f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);//D
-		//Model dedo 2 
-		model = glm::translate(modelTemp, glm::vec3(0.5f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(dedo2), glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
-		color = glm::vec3(1.0f, 0.0f, 1.0f);
+		//Model dedo1 B
+		model = glm::translate(modelTemp, glm::vec3(0.25f, 0.0f, 0.0f));//me muevo al final de la caja para dibujar la otra caja
+		model = glm::rotate(model, glm::radians(dedo2), glm::vec3(0.0f, 0.0f, 1.0f)); //dedo1 B
+		modelTemp = model = glm::translate(model, glm::vec3(0.25f, 0.0f, 0.0f));//para ubicarse en el centro de la figura a dibujar (en x)
+		model = glm::scale(model, glm::vec3(0.5f, 0.15625f, 0.15625f));//dibujo caja
+		color = glm::vec3(1.0f, 0.0f, 1.0f);//coloreo de magenta
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);//E
+		//Model Dedo1 C
+		model = glm::translate(modelTemp, glm::vec3(0.25f, 0.0f, 0.0f));//me muevo al final de la caja para dibujar la otra caja
+		model = glm::rotate(model, glm::radians(dedo3), glm::vec3(0.0f, 0.0f, 1.0f)); //dedo1 C
+		model = glm::translate(model, glm::vec3(0.125f, 0.0f, 0.0f));//para ubicarse en el centro de la figura a dibujar (en x)
+		model = glm::scale(model, glm::vec3(0.25f, 0.15625f, 0.15625f));//dibujo caja
+		color = glm::vec3(1.0f, 1.0f, 0.0f);//coloreo de amarillo
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//F
+
+		//Dedo2
+		//Model Dedo2 A
+		model = glm::translate(modelTemp2, glm::vec3(0.25f, 0.421875f, 0.140625f));//me muevo al final de la caja para dibujar la otra caja
+		model = glm::rotate(model, glm::radians(dedo4), glm::vec3(0.0f, 0.0f, 1.0f)); //dedo2 A
+		modelTemp = model = glm::translate(model, glm::vec3(0.25f, 0.0f, 0.0f));//para ubicarse en el centro de la figura a dibujar
+		model = glm::scale(model, glm::vec3(0.5f, 0.15625f, 0.15625f));//dibujo caja
+		color = glm::vec3(0.0f, 1.0f, 1.0f);//coloreo de cyan
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//G
+
+		//Model Dedo2 B
+		model = glm::translate(modelTemp, glm::vec3(0.25f, 0.0f, 0.0f));//me muevo al final de la caja para dibujar la otra caja
+		model = glm::rotate(model, glm::radians(dedo5), glm::vec3(0.0f, 0.0f, 1.0f)); //dedo2 B
+		modelTemp = model = glm::translate(model, glm::vec3(0.25f, 0.0f, 0.0f));//para ubicarse en el centro de la figura a dibujar
+		model = glm::scale(model, glm::vec3(0.5f, 0.15625f, 0.15625f));//dibujo caja
+		color = glm::vec3(1.0f, 0.0f, 1.0f);//coloreo de magenta
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//H
+
+		//Model Dedo2 C
+		model = glm::translate(modelTemp, glm::vec3(0.25f, 0.0f, 0.0f));//me muevo al final de la caja para dibujar la otra caja
+		model = glm::rotate(model, glm::radians(dedo6), glm::vec3(0.0f, 0.0f, 1.0f)); //dedo2 C
+		model = glm::translate(model, glm::vec3(0.125f, 0.0f, 0.0f));//para ubicarse en el centro de la figura a dibujar
+		model = glm::scale(model, glm::vec3(0.25f, 0.15625f, 0.15625f));//dibujo caja
+		color = glm::vec3(1.0f, 1.0f, 0.0f);//coloreo de amarillo
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//I	
+
+		//Dedo3
+			//Model Dedo3 A
+		model = glm::translate(modelTemp2, glm::vec3(0.25f, 0.421875f, -0.140625f));//me muevo al final de la caja para dibujar la otra caja
+		model = glm::rotate(model, glm::radians(dedo7), glm::vec3(0.0f, 0.0f, 1.0f)); //dedo3 A
+		modelTemp = model = glm::translate(model, glm::vec3(0.25f, 0.0f, 0.0f));//para ubicarse en el centro de la figura a dibujar
+		model = glm::scale(model, glm::vec3(0.5f, 0.15625f, 0.15625f));//dibujo caja
+		color = glm::vec3(0.0f, 1.0f, 1.0f);//coloreo de cyan
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//J
+
+		//Model Dedo3 B
+		model = glm::translate(modelTemp, glm::vec3(0.25f, 0.0f, 0.0f));//me muevo al final de la caja para dibujar la otra caja
+		model = glm::rotate(model, glm::radians(dedo8), glm::vec3(0.0f, 0.0f, 1.0f)); //dedo3 B
+		modelTemp = model = glm::translate(model, glm::vec3(0.25f, 0.0f, 0.0f));//para ubicarse en el centro de la figura a dibujar
+		model = glm::scale(model, glm::vec3(0.5f, 0.15625f, 0.15625f));//dibujo caja
+		color = glm::vec3(1.0f, 0.0f, 1.0f);//coloreo de magenta
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//K
+
+		//Model Dedo3 C
+		model = glm::translate(modelTemp, glm::vec3(0.25f, 0.0f, 0.0f));//me muevo al final de la caja para dibujar la otra caja
+		model = glm::rotate(model, glm::radians(dedo9), glm::vec3(0.0f, 0.0f, 1.0f)); //dedo3 C
+		model = glm::translate(model, glm::vec3(0.125f, 0.0f, 0.0f));//para ubicarse en el centro de la figura a dibujar
+		model = glm::scale(model, glm::vec3(0.25f, 0.15625f, 0.15625f));//dibujo caja
+		color = glm::vec3(1.0f, 1.0f, 0.0f);//coloreo de amarillo
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//L	
+
+		//Dedo4
+			//Model Dedo4 A
+		model = glm::translate(modelTemp2, glm::vec3(0.25f, 0.421875f, -0.421875f));//me muevo al final de la caja para dibujar la otra caja
+		model = glm::rotate(model, glm::radians(dedo10), glm::vec3(0.0f, 0.0f, 1.0f)); //dedo4 A
+		modelTemp = model = glm::translate(model, glm::vec3(0.25f, 0.0f, 0.0f));//para ubicarse en el centro de la figura a dibujar
+		model = glm::scale(model, glm::vec3(0.5f, 0.15625f, 0.15625f));//dibujo caja
+		color = glm::vec3(0.0f, 1.0f, 1.0f);//coloreo de cyan
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//M
+
+		//Model Dedo4 B
+		model = glm::translate(modelTemp, glm::vec3(0.25f, 0.0f, 0.0f));//me muevo al final de la caja para dibujar la otra caja
+		model = glm::rotate(model, glm::radians(dedo11), glm::vec3(0.0f, 0.0f, 1.0f)); //dedo4 B
+		modelTemp = model = glm::translate(model, glm::vec3(0.25f, 0.0f, 0.0f));//para ubicarse en el centro de la figura a dibujar
+		model = glm::scale(model, glm::vec3(0.5f, 0.15625f, 0.15625f));//dibujo caja
+		color = glm::vec3(1.0f, 0.0f, 1.0f);//coloreo de magenta
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//N
+
+		//Model Dedo4 C
+		model = glm::translate(modelTemp, glm::vec3(0.25f, 0.0f, 0.0f));//me muevo al final de la caja para dibujar la otra caja
+		model = glm::rotate(model, glm::radians(dedo12), glm::vec3(0.0f, 0.0f, 1.0f)); //dedo4 C
+		model = glm::translate(model, glm::vec3(0.125f, 0.0f, 0.0f));//para ubicarse en el centro de la figura a dibujar
+		model = glm::scale(model, glm::vec3(0.25f, 0.15625f, 0.15625f));//dibujo caja
+		color = glm::vec3(1.0f, 1.0f, 0.0f);//coloreo de amarillo
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//O
+
+
+		//Dedo5
+			//Model Dedo5 A
+		model = glm::translate(modelTemp2, glm::vec3(0.25f, -0.3828125, 0.3828125));//me muevo al final de la caja para dibujar la otra caja
+		model = glm::rotate(model, glm::radians(dedo13), glm::vec3(0.0f, 1.0f, 0.0f)); //dedo5 A
+		modelTemp = model = glm::translate(model, glm::vec3(0.25f, 0.0f, 0.0f));//para ubicarse en el centro de la figura a dibujar
+		model = glm::scale(model, glm::vec3(0.5f, 0.234375f, 0.234375f));//dibujo caja
+		color = glm::vec3(0.0f, 1.0f, 1.0f);//coloreo de cyan
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//P
+
+		//Model Dedo5 B
+		model = glm::translate(modelTemp, glm::vec3(0.25f, 0.0f, 0.0f));//me muevo al final de la caja para dibujar la otra caja
+		model = glm::rotate(model, glm::radians(dedo14), glm::vec3(0.0f, 1.0f, 0.0f)); //dedo5 B
+		modelTemp = model = glm::translate(model, glm::vec3(0.125f, 0.0f, 0.0f));//para ubicarse en el centro de la figura a dibujar
+		model = glm::scale(model, glm::vec3(0.25f, 0.234375f, 0.234375f));//dibujo caja
+		color = glm::vec3(1.0f, 0.0f, 1.0f);//coloreo de magenta
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//Q
+
+
+
+
+
 
 
 
@@ -283,7 +424,7 @@ int main() {
 		 movX += 0.08f;
 	 if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 		 movX -= 0.08f;
-	 if (glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS)
+	 if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 		 movY += 0.08f;
 	 if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
 		 movY -= 0.08f;
@@ -295,26 +436,117 @@ int main() {
 		 rot += 0.18f;
 	 if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
 		 rot -= 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
-		 hombro += 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
-		 hombro -= 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
-		 codo += 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
-		 codo -= 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
-		 muneca += 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
-		 muneca -= 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
-		 dedo1 += 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS)
-		 dedo1-= 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
-		 dedo2 += 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS)
-		 dedo2 -= 0.18f;
+	 if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+		 hombro += 0.1f;
+		 if (hombro > 90.0f) //hombro no puede ser mayor a 90° para arriba
+			 hombro = 90.0f;
+	 }
+	 if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+		 hombro -= 0.1f;
+		 if (hombro < -90.0f) //hombro no puede ser menor a -90° para abajo
+			 hombro = -90.0f;
+	 }
+	 if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS) {
+		 codo += 0.1f;
+		 if (codo > 0.0f) //codo no puede ser mayor a 0°
+			 codo = 0.0f;
+	 }
+	 if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) {
+		 codo -= 0.1f;
+		 if (codo < -90.0f) //codo no puede ser menor a -90°
+			 codo = -90.0f;
+	 }
+	 if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS) {
+		 muneca += 0.1f;
+		 if (muneca > 90.0f) //muneca no puede ser mayor a 90°
+			 muneca = 90.0f;
+	 }
+	 if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS) {
+		 muneca -= 0.1f;
+		 if (muneca < -90.0f) //muneca no puede ser menor a -90°
+			 muneca = -90.0f;
+	 }
+	 //Falange proximal
+	 if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
+		 dedo1 += 0.1f;
+		 dedo4 += 0.2f;
+		 dedo7 += 0.3f;
+		 dedo10 += 0.4f;
+		 if (dedo1 > 6.0f) dedo1 = 6.0f; //dedo1 no puede ser mayor a 6°
+		 if (dedo4 > 6.0f) dedo4 = 6.0f; //dedo1 no puede ser mayor a 6°
+		 if (dedo7 > 6.0f) dedo7 = 6.0f; //dedo1 no puede ser mayor a 6°
+		 if (dedo10 > 6.0f) dedo10 = 6.0f; //dedo1 no puede ser mayor a 6°
+	 }
+	 if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
+		 dedo1 -= 0.1f;
+		 dedo4 -= 0.2f;
+		 dedo7 -= 0.3f;
+		 dedo10 -= 0.4f;
+		 if (dedo1 < -12.0f) dedo1 = -12.0f; //dedo1 no puede ser menor a -12°
+		 if (dedo4 < -12.0f) dedo4 = -12.0f; //dedo4 no puede ser menor a -12°
+		 if (dedo7 < -12.0f) dedo7 = -12.0f; //dedo7 no puede ser menor a -12°
+		 if (dedo10 < -12.0f) dedo10 = -12.0f; //dedo10 no puede ser menor a -12°
+	 }
+	 //Falange intermedia
+	 if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) {
+		 dedo2 += 0.1f;
+		 dedo5 += 0.1f;
+		 dedo8 += 0.1f;
+		 dedo11 += 0.1f;
+		 if (dedo2 > 0.0f) dedo2 = 0.0f; //dedo2 no puede ser mayor a 0°
+		 if (dedo5 > 0.0f) dedo5 = 0.0f; //dedo5 no puede ser mayor a 0°
+		 if (dedo8 > 0.0f) dedo8 = 0.0f; //dedo8 no puede ser mayor a 0°
+		 if (dedo11 > 0.0f) dedo11 = 0.0f; //dedo11 no puede ser mayor a 0°
+	 }
+	 if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) {
+		 dedo2 -= 0.1f;
+		 dedo5 -= 0.1f;
+		 dedo8 -= 0.1f;
+		 dedo11 -= 0.1f;
+		 if (dedo2 < -105.0f) dedo2 = -105.0f; //dedo2 no puede ser menor a -105°
+		 if (dedo5 < -105.0f) dedo5 = -105.0f; //dedo5 no puede ser menor a -105°
+		 if (dedo8 < -105.0f) dedo8 = -105.0f; //dedo8 no puede ser menor a -105°
+		 if (dedo11 < -105.0f) dedo11 = -105.0f; //dedo11 no puede ser menor a -105°
+	 }
+	 //Falange distal
+	 if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) {
+		 dedo3 += 0.1f;
+		 dedo6 += 0.1f;
+		 dedo9 += 0.1f;
+		 dedo12 += 0.1f;
+		 if (dedo3 > 0.0f) dedo3 = 0.0f; //dedo2 no puede ser mayor a 0°
+		 if (dedo6 > 0.0f) dedo6 = 0.0f; //dedo6 no puede ser mayor a 0°
+		 if (dedo9 > 0.0f) dedo9 = 0.0f; //dedo9 no puede ser mayor a 0°
+		 if (dedo12 > 0.0f) dedo12 = 0.0f; //dedo12 no puede ser mayor a 0°
+	 }
+	 if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS) {
+		 dedo3 -= 0.1f;
+		 dedo6 -= 0.1f;
+		 dedo9 -= 0.1f;
+		 dedo12 -= 0.1f;
+		 if (dedo3 < -90.0f) dedo3 = -90.0f; //dedo2 no puede ser menor a -90°
+		 if (dedo6 < -90.0f) dedo6 = -90.0f; //dedo6 no puede ser menor a -90°
+		 if (dedo9 < -90.0f) dedo9 = -90.0f; //dedo9 no puede ser menor a -90°
+		 if (dedo12 < -90.0f) dedo12 = -90.0f; //dedo12 no puede ser menor a -90°
+	 }
+	 //Falange proximal del pulgar
+	 if (glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS) {
+		 dedo13 += 0.1f;
+		 if (dedo13 > 38.0f) dedo13 = 38.0f; //dedo13 no puede ser mayor a 38°
+	 }
+	 if (glfwGetKey(window, GLFW_KEY_8) == GLFW_PRESS) {
+		 dedo13 -= 0.1f;
+		 if (dedo13 < -6.0f) dedo13 = -6.0f; //dedo13 no puede ser menor a -6°
+	 }
+	 //Falange distal del pulgar
+	 if (glfwGetKey(window, GLFW_KEY_9) == GLFW_PRESS) {
+		 dedo14 += 0.1f;
+		 if (dedo14 > 90.0f) dedo14 = 90.0f; //dedo14 no puede ser mayor a 90°
+	 }
+	 if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS) {
+		 dedo14 -= 0.1f;
+		 if (dedo14 < 0.0f) dedo14 = 0.0f; //dedo14 no puede ser menor a 0°
+	 }
  }
 
 

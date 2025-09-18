@@ -1,6 +1,6 @@
 /*
 Previo 6
-Fecha de entrega 14 de septiembre del 2025
+Fecha de entrega 17 de septiembre del 2025
 Morales Soto Fernando
 315143977
 */
@@ -95,12 +95,16 @@ int main( )
     
     // OpenGL options
     glEnable( GL_DEPTH_TEST );
+    //prepara a opengl para manejar el canal alfa de las texturas
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     
     // Setup and compile our shaders
     Shader shader( "Shader/modelLoading.vs", "Shader/modelLoading.frag" );
     
     // Load models
-    Model dog((char*)"Models/RedDog.obj");
+    Model dog((char*)"Models/Plant.obj");
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
     
   

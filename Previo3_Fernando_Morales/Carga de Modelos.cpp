@@ -1,6 +1,6 @@
 /*
-Previo 6
-Fecha de entrega 17 de septiembre del 2025
+Practica 6
+Fecha de entrega 24 de septiembre del 2025
 Morales Soto Fernando
 315143977
 */
@@ -38,7 +38,7 @@ void DoMovement( );
 
 
 // Camera
-Camera camera( glm::vec3( 0.0f, 0.0f, 0.0f ) );
+Camera camera( glm::vec3( 0.0f, 6.0f, 25.0f ) );
 bool keys[1024];
 GLfloat lastX = 400, lastY = 300;
 bool firstMouse = true;
@@ -104,9 +104,24 @@ int main( )
     Shader shader( "Shader/modelLoading.vs", "Shader/modelLoading.frag" );
     
     // Load models
-    Model dog((char*)"Models/Plant.obj");
+    Model dog((char*)"Models/RedDog.obj");
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
-    
+
+
+    Model asteroide3((char*)"Models/Rocky_Asteroid_3.obj");
+    glm::mat4 projectionas = glm::perspective(camera.GetZoom(), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.5f, 100.0f);
+
+    Model asteroide1((char*)"Models/Asteroid_1.obj");
+    glm::mat4 projectionast = glm::perspective(camera.GetZoom(), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.5f, 100.0f);
+
+    Model luna((char*)"Models/Moon 2K.obj");
+    glm::mat4 projectionluna = glm::perspective(camera.GetZoom(), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.5f, 100.0f);
+
+    Model tierra((char*)"Models/Earth.obj");
+    glm::mat4 projectiontierra = glm::perspective(camera.GetZoom(), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.5f, 100.0f);
+
+    Model saturno((char*)"Models/Stylized_Planets.obj");
+    glm::mat4 projectionsat = glm::perspective(camera.GetZoom(), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.5f, 100.0f);
   
 
     // Game loop
@@ -122,7 +137,10 @@ int main( )
         DoMovement();
 
         // Clear the colorbuffer
-        glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         shader.Use();
@@ -132,14 +150,48 @@ int main( )
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
         // Draw the loaded model
+      //Perro
         glm::mat4 model(1);
+        model = glm::translate(model, glm::vec3(0.0f, 5.5f, 0.0f)); 
+        model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));  
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         dog.Draw(shader);
 
-        model = glm::translate(model, glm::vec3(3.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(2.0, 2.0f, 2.0f));
+        //// Tierra
+        model = glm::mat4(1); 
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));  
+        model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));  
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        dog.Draw(shader);
+        tierra.Draw(shader);
+
+        //// Saturno
+        model = glm::mat4(1); 
+        model = glm::translate(model, glm::vec3(-8.0f, 15.0f, 0.0f));  
+        model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));  
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        saturno.Draw(shader);
+
+        //// Luna
+        model = glm::mat4(1); 
+        model = glm::translate(model, glm::vec3(14.0f, 15.0f, 0.0f));  
+        model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));  
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        luna.Draw(shader);
+
+        //// Asteroide1
+        model = glm::mat4(1); 
+        model = glm::translate(model, glm::vec3(-5.0f, 8.0f, 0.0f));  
+        model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));  
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        asteroide1.Draw(shader);
+
+        //// Asteroide3
+        model = glm::mat4(1); 
+        model = glm::translate(model, glm::vec3(8.0f, 8.0f, 0.0f));  
+        model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));  
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        asteroide3.Draw(shader);
+
         // Swap the buffers
         glfwSwapBuffers( window );
     }

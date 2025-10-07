@@ -1,6 +1,6 @@
-/*
-Previo 7 
-Fecha de entrega 25 de septiembre del 2025
+﻿/*
+Practica 7 
+Fecha de entrega 7 de octubre del 2025
 Morales Soto Fernando
 315143977
 */
@@ -103,23 +103,66 @@ int main()
 	Shader lampShader("Shader/lamp.vs", "Shader/lamp.frag");
 
 	// Set up vertex data (and buffer(s)) and attribute pointers
-	GLfloat vertices[] =
-	{
-		// Positions            // Colors              // Texture Coords
-		-0.5f, -0.5f, 0.0f,    1.0f, 1.0f,1.0f,		0.0f,0.0f,
-		0.5f, -0.5f, 0.0f,	   1.0f, 1.0f,1.0f,		2.0f,0.0f,
-		0.5f,  0.5f, 0.0f,     1.0f, 1.0f,1.0f,	    2.0f,2.0f,
-		-0.5f,  0.5f, 0.0f,    1.0f, 1.0f,1.0f,		0.0f,2.0f,
+	// 
+// Cortes UV (atlas 4×4)
+	const GLfloat U0 = 0.0f, U1 = 0.25f, U2 = 0.50f, U3 = 0.75f, U4 = 1.0f;
+	const GLfloat V0 = 0.0f, V1 = 0.25f, V2 = 0.50f, V3 = 0.75f, V4 = 1.0f;
 
-		
+	// Cubo: pos(3) | color(3) | uv(2)
+	// Orden de caras: +X=3, -X=4, +Y=1, -Y=6, +Z=2, -Z=5
+	GLfloat vertices[] = {
+		// +X (derecha) cara 3  
+		+0.5f,-0.5f,-0.5f,  1,1,1,  U1,V1,
+		+0.5f,+0.5f,-0.5f,  1,1,1,  U1,V2,
+		+0.5f,+0.5f,+0.5f,  1,1,1,  U2,V2,
+		+0.5f,-0.5f,+0.5f,  1,1,1,  U2,V1,
+
+		// -X (izquierda)  cara 4  
+		-0.5f,-0.5f,+0.5f,  1,1,1,  U1,V3,
+		-0.5f,+0.5f,+0.5f,  1,1,1,  U1,V4,
+		-0.5f,+0.5f,-0.5f,  1,1,1,  U2,V4,
+		-0.5f,-0.5f,-0.5f,  1,1,1,  U2,V3,
+
+		// +Y (arriba)  cara 1  
+		-0.5f,+0.5f,-0.5f,  1,1,1,  U2,V3,
+		-0.5f,+0.5f,+0.5f,  1,1,1,  U1,V3,
+		+0.5f,+0.5f,+0.5f,  1,1,1,  U1,V2,
+		+0.5f,+0.5f,-0.5f,  1,1,1,  U2,V2,
+
+		// -Y (abajo)  cara 6  
+		-0.5f,-0.5f,+0.5f,  1,1,1,  U1,V0,
+		-0.5f,-0.5f,-0.5f,  1,1,1,  U2,V0,
+		+0.5f,-0.5f,-0.5f,  1,1,1,  U2,V1,
+		+0.5f,-0.5f,+0.5f,  1,1,1,  U1,V1,
+
+		// +Z (frente)  cara 2  
+		-0.5f,-0.5f,+0.5f,  1,1,1,  U2,V0,
+		+0.5f,-0.5f,+0.5f,  1,1,1,  U3,V0,
+		+0.5f,+0.5f,+0.5f,  1,1,1,  U3,V1,
+		-0.5f,+0.5f,+0.5f,  1,1,1,  U2,V1,
+
+		// -Z (atrás)  cara 5  
+		+0.5f,-0.5f,-0.5f,  1,1,1,  U0,V0,
+		-0.5f,-0.5f,-0.5f,  1,1,1,  U1,V0,
+		-0.5f,+0.5f,-0.5f,  1,1,1,  U1,V1,
+		+0.5f,+0.5f,-0.5f,  1,1,1,  U0,V1,
 	};
 
-	GLuint indices[] =
-	{  // Note that we start from 0!
-		0,1,3,
-		1,2,3
-	
+	GLuint indices[] = {
+		// +X
+		0,1,2,  0,2,3,
+		// -X
+		4,5,6,  4,6,7,
+		// +Y
+		8,9,10,  8,10,11,
+		// -Y
+		12,13,14,  12,14,15,
+		// +Z
+		16,17,18,  16,18,19,
+		// -Z
+		20,21,22,  20,22,23
 	};
+
 
 	// First, set the container's VAO (and VBO)
 	GLuint VBO, VAO,EBO;
@@ -157,7 +200,7 @@ int main()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 	// Diffuse map
-	image = stbi_load("images/agua.Png", &textureWidth, &textureHeight, &nrChannels,0);
+	image = stbi_load("images/d2.png", &textureWidth, &textureHeight, &nrChannels,0);
 	glBindTexture(GL_TEXTURE_2D, texture1);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -213,7 +256,7 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		// Draw the light object (using light's vertex attributes)
 		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
 		// Swap the screen buffers

@@ -36,12 +36,21 @@
     <None Include="Shader\lighting.vs">
       <Filter>Archivos de origen\shader</Filter>
     </None>
+    <None Include="Shader\SkyBox.frag">
+      <Filter>Archivos de origen\shader</Filter>
+    </None>
+    <None Include="Shader\SkyBox.vs">
+      <Filter>Archivos de origen\shader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
